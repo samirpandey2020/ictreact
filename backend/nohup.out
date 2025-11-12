@@ -1,0 +1,57 @@
+INFO:     Started server process [103025]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+ERROR:    [Errno 98] error while attempting to bind on address ('0.0.0.0', 8000): address already in use
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Started server process [103387]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8003 (Press CTRL+C to quit)
+INFO:     127.0.0.1:55838 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53102 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42816 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42816 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42816 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42816 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60664 - "OPTIONS /pairs/ HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:40282 - "OPTIONS /pairs/ HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:55608 - "OPTIONS /pairs/ HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:53516 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53516 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59182 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59182 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59182 - "OPTIONS /pairs/1762962021087 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:59182 - "OPTIONS /pairs/1762962037275 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:59182 - "OPTIONS /pairs/1762962048740 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:36250 - "OPTIONS /pairs/ HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:36250 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36250 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47460 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47460 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45872 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45872 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46388 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46388 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [103387]
+INFO:     Started server process [119944]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8003 (Press CTRL+C to quit)
+INFO:     127.0.0.1:45416 - "OPTIONS /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45428 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45428 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45428 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45428 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36118 - "OPTIONS /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36126 - "POST /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36126 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36118 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58446 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58448 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44370 - "POST /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33780 - "GET /pairs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33796 - "GET /pairs/ HTTP/1.1" 200 OK
