@@ -387,3 +387,195 @@ export const playBoom3D = (audioCtxRef, soundEnabled = true, opts = {}) => {
     playSingleBoom(x, y, z, delay, intensity);
   }
 };
+
+// New winning sound - "wooo" then continuous firecracker bursts
+export const playWinSound = (audioCtxRef, soundEnabled = true) => {
+  if (!soundEnabled) return;
+  const ctx = initializeAudioContext(audioCtxRef);
+  
+  // Create the ascending "wooo" sound (rocket launch)
+  const createRocketLaunch = () => {
+    const t0 = ctx.currentTime;
+    
+    // Oscillator for the main "wooo" sound
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    
+    osc.type = 'sine';
+    // Start at low frequency and rapidly sweep up (like a rocket)
+    osc.frequency.setValueAtTime(100, t0);
+    osc.frequency.exponentialRampToValueAtTime(800, t0 + 0.4);
+    
+    // Quick attack and decay envelope
+    gain.gain.setValueAtTime(0, t0);
+    gain.gain.linearRampToValueAtTime(0.4, t0 + 0.02); // Sharp attack
+    gain.gain.exponentialRampToValueAtTime(0.3, t0 + 0.2); // Slight decay during ascent
+    gain.gain.exponentialRampToValueAtTime(0.01, t0 + 0.4); // Quick fade
+    
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    
+    osc.start(t0);
+    osc.stop(t0 + 0.4);
+    
+    // Add some white noise for rocket engine effect
+    const bufferSize = ctx.sampleRate * 0.4;
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    
+    for (let i = 0; i < bufferSize; i++) {
+      // Apply envelope that follows the oscillator
+      const env = Math.exp(-i / (bufferSize * 0.8)); // Exponential decay
+      data[i] = (Math.random() * 2 - 1) * env * 0.3; // Lower volume
+    }
+    
+    const noise = ctx.createBufferSource();
+    noise.buffer = buffer;
+    
+    const noiseGain = ctx.createGain();
+    noiseGain.gain.setValueAtTime(0, t0);
+    noiseGain.gain.linearRampToValueAtTime(0.15, t0 + 0.05);
+    noiseGain.gain.exponentialRampToValueAtTime(0.01, t0 + 0.4);
+    
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(300, t0);
+    
+    noise.connect(filter);
+    filter.connect(noiseGain);
+    noiseGain.connect(ctx.destination);
+    
+    noise.start(t0);
+    noise.stop(t0 + 0.4);
+  };
+  
+  // Create continuous firecracker bursts
+  const createFirecrackerSequence = (delay) => {
+    const startTime = ctx.currentTime + delay;
+    
+    // Create multiple firecrackers with random timing
+    for (let i = 0; i < 8; i++) {
+      // Randomize timing for natural firecracker effect
+      const firecrackerDelay = startTime + i * 0.15 + Math.random() * 0.1;
+      
+      // Each firecracker has random characteristics
+      const createSingleFirecracker = () => {
+        // Main pop sound
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.type = 'sine';
+        // Random frequency for variety
+        const frequency = 80 + Math.random() * 120;
+        osc.frequency.setValueAtTime(frequency, firecrackerDelay);
+        osc.frequency.exponentialRampToValueAtTime(frequency * 0.3, firecrackerDelay + 0.15);
+        
+        // Sharp attack and quick decay
+        gain.gain.setValueAtTime(0, firecrackerDelay);
+        gain.gain.linearRampToValueAtTime(0.4 + Math.random() * 0.3, firecrackerDelay + 0.005);
+        gain.gain.exponentialRampToValueAtTime(0.01, firecrackerDelay + 0.15);
+        
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        osc.start(firecrackerDelay);
+        osc.stop(firecrackerDelay + 0.15);
+        
+        // Add noise burst for crackling effect
+        const bufferSize = ctx.sampleRate * 0.1;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        for (let j = 0; j < bufferSize; j++) {
+          // Create crackling noise
+          const env = Math.pow(1 - (j / bufferSize), 2);
+          data[j] = (Math.random() * 2 - 1) * env;
+        }
+        
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+        
+        const noiseGain = ctx.createGain();
+        noiseGain.gain.setValueAtTime(0, firecrackerDelay);
+        noiseGain.gain.linearRampToValueAtTime(0.2 + Math.random() * 0.2, firecrackerDelay + 0.01);
+        noiseGain.gain.exponentialRampToValueAtTime(0.01, firecrackerDelay + 0.12);
+        
+        // Filter for brightness
+        const highpass = ctx.createBiquadFilter();
+        highpass.type = 'highpass';
+        highpass.frequency.setValueAtTime(500 + Math.random() * 1000, firecrackerDelay);
+        
+        noise.connect(highpass);
+        highpass.connect(noiseGain);
+        noiseGain.connect(ctx.destination);
+        
+        noise.start(firecrackerDelay);
+        noise.stop(firecrackerDelay + 0.12);
+      };
+      
+      // Slightly stagger each firecracker
+      setTimeout(createSingleFirecracker, i * 50 + Math.random() * 30);
+    }
+  };
+  
+  // Play the sequence: rocket launch followed by continuous firecrackers
+  createRocketLaunch();
+  setTimeout(() => createFirecrackerSequence(0), 400); // Firecrackers 400ms after launch starts
+};
+
+// New losing sound - sad "booing" effect
+export const playLoseSound = (audioCtxRef, soundEnabled = true) => {
+  if (!soundEnabled) return;
+  const ctx = initializeAudioContext(audioCtxRef);
+  
+  // Create a descending, sad tone
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  
+  osc.type = 'sine';
+  
+  // Start at a higher frequency and slide down (sad trombone effect)
+  osc.frequency.setValueAtTime(400, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 1.2);
+  
+  gain.gain.setValueAtTime(0, ctx.currentTime);
+  gain.gain.linearRampToValueAtTime(0.2, ctx.currentTime + 0.05);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1.2);
+  
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 1.2);
+  
+  // Add some noise for a breathy, disappointed effect
+  const bufferSize = ctx.sampleRate * 1.0;
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  
+  for (let i = 0; i < bufferSize; i++) {
+    // Apply envelope to make it fade out
+    const env = 1 - (i / bufferSize);
+    // Add some randomness for breathiness
+    data[i] = (Math.random() * 0.5 - 0.25) * env;
+  }
+  
+  const noise = ctx.createBufferSource();
+  noise.buffer = buffer;
+  
+  const noiseGain = ctx.createGain();
+  noiseGain.gain.setValueAtTime(0, ctx.currentTime);
+  noiseGain.gain.linearRampToValueAtTime(0.05, ctx.currentTime + 0.1);
+  noiseGain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1.0);
+  
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'bandpass';
+  filter.frequency.setValueAtTime(500, ctx.currentTime);
+  
+  noise.connect(filter);
+  filter.connect(noiseGain);
+  noiseGain.connect(ctx.destination);
+  
+  noise.start(ctx.currentTime);
+  noise.stop(ctx.currentTime + 1.0);
+};

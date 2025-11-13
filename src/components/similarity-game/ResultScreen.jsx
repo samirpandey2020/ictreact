@@ -99,18 +99,15 @@ const ResultScreen = ({
   const getEncouragementMessage = () => {
     if (score) {
       // Educational messages for winners
-      const educationalMessages = [
-        "Great job! Did you know that signature verification systems use similar comparison techniques to authenticate documents?",
-        "Excellent work! OCR (Optical Character Recognition) technology also relies on pattern matching just like this game!",
-        "Well done! Machine learning algorithms analyze image similarities for everything from facial recognition to medical imaging.",
-        "Fantastic! Computer vision systems compare thousands of visual features to determine if two images are related.",
-        "Amazing! These same similarity detection techniques are used in plagiarism checkers and search engines.",
-        "Incredible! Digital forensics experts use image comparison to solve crimes and verify evidence authenticity.",
-        "Outstanding! Content-based image retrieval systems use similarity metrics to find visually related photos.",
-        "Brilliant! Biometric systems compare fingerprint patterns using mathematical similarity algorithms just like this!",
-        "Impressive! These techniques are used in quality control systems to detect defective products on assembly lines.",
-        "Perfect! Augmented reality apps use image matching to overlay digital content in the real world."
-      ];
+    const educationalMessages = [
+  "Great job! Signature verification systems use pattern comparison to authenticate handwritten signatures.",
+  "Excellent work! OCR (Optical Character Recognition) technology extracts text by matching visual patterns in images.",
+  "Well done! Both OCR and signature verification rely on analyzing shapes, strokes, and structural similarities in images.",
+  "Fantastic! Automated signature verification compares pressure, angle, and curve features just like this comparison task.",
+  "Amazing! OCR systems train on thousands of letter samples to accurately detect and convert handwriting or printed text.",
+  "Impressive! Signature verification models learn from genuine and forged examples to identify authenticity in documents."
+];
+
       return educationalMessages[Math.floor(Math.random() * educationalMessages.length)];
     } else if (difference <= 5) {
       return "Incredible guess! You're so close to perfection!";

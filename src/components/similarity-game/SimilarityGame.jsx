@@ -10,7 +10,9 @@ import {
   playHeartbeatSound, 
   playSuccess, 
   playFail,
-  playFirecrackerSound
+  playFirecrackerSound,
+  playWinSound,
+  playLoseSound
 } from './audioUtils';
 import WelcomeScreen from './WelcomeScreen';
 import PlayingScreen from './PlayingScreen';
@@ -91,12 +93,9 @@ const SimilarityGame = () => {
         const correct = diff <= 15;
         createConfetti(correct ? 60 : 20);
         if (correct) {
-          playSuccess(audioCtx, sound);
-          // Play firecracker sounds for win
-          setTimeout(() => playFirecrackerSound(audioCtx, sound), 500);
-          setTimeout(() => playFirecrackerSound(audioCtx, sound), 1200);
+          playWinSound(audioCtx, sound);
         } else {
-          playFail(audioCtx, sound);
+          playLoseSound(audioCtx, sound);
         }
       }, 2000);
     }, 3000);
