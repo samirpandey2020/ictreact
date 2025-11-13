@@ -78,30 +78,7 @@ const WelcomeScreen = ({ onStart, pairs }) => {
         />
       </motion.button>
 
-      {/* Admin Link - moved to bottom right corner */}
-      <motion.div 
-        className="absolute bottom-6 right-6"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7 }}
-      >
-        <a 
-          href="/admin" 
-          className="text-cyan-300 hover:text-cyan-100 transition-colors text-lg flex items-center gap-2 group bg-gray-900/50 backdrop-blur-sm px-4 py-2 rounded-full border border-cyan-500/30"
-        >
-          <span>Admin Panel</span>
-          <motion.span
-            className="group-hover:translate-x-1 transition-transform"
-            animate={{ x: [0, 5, 0] }}
-            transition={{ 
-              duration: 1.5,
-              repeat: Infinity,
-            }}
-          >
-            →
-          </motion.span>
-        </a>
-      </motion.div>
+     
 
       {/* Animated Grid Background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">

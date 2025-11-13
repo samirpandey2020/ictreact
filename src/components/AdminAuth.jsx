@@ -161,7 +161,7 @@ const AdminAuth = ({ children }) => {
             type="submit"
             className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-full transition-all transform hover:scale-105"
           >
-            Login
+            Enter Vault
           </button>
         </form>
         

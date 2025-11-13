@@ -153,9 +153,9 @@ const AdminAuth = () => {
           
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-full transition-all"
+            className="w-full bg-black hover:bg-black-500 text-white font-bold py-3 px-4 rounded-full transition-all"
           >
-            Login
+            Enter Vault
           </button>
         </form>
         
