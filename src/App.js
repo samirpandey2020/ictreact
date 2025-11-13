@@ -1,15 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import KioskSimilarityGame from "./SimilarityGame";
-import AdminPanel from "./AdminPanel";
+import SimilarityGame from "./components/similarity-game/SimilarityGame";
+import AdminAuth from "./AdminAuth";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<KioskSimilarityGame />} />
-        <Route path="/admin" element={<AdminPanel />} />
-        <Route path="/test" element={<AdminPanel />} />
+        <Route path="/" element={<SimilarityGame />} />
+        <Route path="/admin" element={<AdminAuth />} />
+        <Route path="/test" element={<AdminAuth />} />
       </Routes>
     </Router>
   );
