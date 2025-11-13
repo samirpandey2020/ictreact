@@ -37,6 +37,92 @@ const ResultScreen = ({
     createFirecrackerParticles(11, 70, 20)
   ];
 
+  // Calculate the difference between user guess and actual similarity
+  const difference = Math.abs(userGuess - pair.similarity);
+
+  // Get dynamic text based on how close the user was
+  const getDynamicText = () => {
+    if (score) {
+      // Exact match - winner texts
+      const winnerTexts = [
+        "PERFECT MATCH! You're a similarity savant! 🎉",
+        "EXACT MATCH! Your intuition is unmatched! 🔥",
+        "PRECISION PERFECT! You nailed it! 🎯",
+        "FLAWLESS VICTORY! You've mastered this! 🏆",
+        "ABSOLUTE PERFECTION! You're a genius! 🌟"
+      ];
+      return winnerTexts[Math.floor(Math.random() * winnerTexts.length)];
+    } else if (difference <= 5) {
+      // Very close
+      const closeTexts = [
+        "SO CLOSE! You almost had it! 🔥",
+        "NEARLY PERFECT! Just a tiny bit off! 🎯",
+        "ALMOST THERE! Your estimate was spot on! ✨",
+        "SUPER CLOSE! You're a natural at this! 🌟",
+        "TEENSY WEENSY AWAY! Incredible guess! 💯"
+      ];
+      return closeTexts[Math.floor(Math.random() * closeTexts.length)];
+    } else if (difference <= 10) {
+      // Close
+      const closeTexts = [
+        "PRETTY CLOSE! Good estimation skills! 👍",
+        "NOT BAD! You're getting the hang of it! 🎯",
+        "CLOSE ENOUGH! Nice try! ✨",
+        "ALMOST! You're on the right track! 🌟",
+        "NEARLY! Keep practicing and you'll nail it! 💪"
+      ];
+      return closeTexts[Math.floor(Math.random() * closeTexts.length)];
+    } else if (difference <= 20) {
+      // Somewhat close
+      const somewhatCloseTexts = [
+        "NOT TOO FAR OFF! Keep trying! 👍",
+        "YOU'RE GETTING WARMER! Nice effort! 🔥",
+        "FAIR ATTEMPT! You're learning! 🌱",
+        "DECENT GUESS! Practice makes perfect! 💪",
+        "ON THE RIGHT PATH! Keep going! 🎯"
+      ];
+      return somewhatCloseTexts[Math.floor(Math.random() * somewhatCloseTexts.length)];
+    } else {
+      // Far off
+      const farOffTexts = [
+        "WIDE OF THE MARK! But don't give up! 💪",
+        "NOT EVEN CLOSE! Try again! 👍",
+        "FAR FROM ACCURATE! Keep practicing! 🌱",
+        "MISSED BY A MILE! You'll do better next time! 🎯",
+        "COMPLETELY OFF! But that's how you learn! ✨"
+      ];
+      return farOffTexts[Math.floor(Math.random() * farOffTexts.length)];
+    }
+  };
+
+  // Get encouragement message based on performance
+  const getEncouragementMessage = () => {
+    if (score) {
+      // Educational messages for winners
+      const educationalMessages = [
+        "Great job! Did you know that signature verification systems use similar comparison techniques to authenticate documents?",
+        "Excellent work! OCR (Optical Character Recognition) technology also relies on pattern matching just like this game!",
+        "Well done! Machine learning algorithms analyze image similarities for everything from facial recognition to medical imaging.",
+        "Fantastic! Computer vision systems compare thousands of visual features to determine if two images are related.",
+        "Amazing! These same similarity detection techniques are used in plagiarism checkers and search engines.",
+        "Incredible! Digital forensics experts use image comparison to solve crimes and verify evidence authenticity.",
+        "Outstanding! Content-based image retrieval systems use similarity metrics to find visually related photos.",
+        "Brilliant! Biometric systems compare fingerprint patterns using mathematical similarity algorithms just like this!",
+        "Impressive! These techniques are used in quality control systems to detect defective products on assembly lines.",
+        "Perfect! Augmented reality apps use image matching to overlay digital content in the real world."
+      ];
+      return educationalMessages[Math.floor(Math.random() * educationalMessages.length)];
+    } else if (difference <= 5) {
+      return "Incredible guess! You're so close to perfection!";
+    } else if (difference <= 10) {
+      return "Great effort! You're really improving!";
+    } else if (difference <= 20) {
+      return "Good try! Keep practicing and you'll get there!";
+    } else {
+      return "Don't worry! Estimation takes practice. Try again!";
+    }
+  };
+
   return (
     <motion.div 
       className="flex flex-col items-center text-center text-white space-y-6 z-10 w-full max-w-4xl px-4"
@@ -185,7 +271,7 @@ const ResultScreen = ({
             transition={{ delay: 0.2 }}
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
-              INCREDIBLE! 🎉
+              {getDynamicText()}
             </span>
           </motion.h2>
           <motion.div
@@ -209,18 +295,33 @@ const ResultScreen = ({
               damping: 10,
             }}
           >
-            <div className="text-7xl md:text-9xl">❌</div>
-            <motion.div 
-              className="absolute -top-3 -right-3 w-8 h-8 bg-blue-500 rounded-full"
-              animate={{ 
-                scale: [1, 1.8, 1],
-                opacity: [1, 0.5, 1],
-              }}
-              transition={{ 
-                duration: 1,
-                repeat: Infinity,
-              }}
-            />
+            {/* Replace the cross with a more engaging mechanical/error-themed animation */}
+            <div className="relative">
+              <div className="text-7xl md:text-9xl">⚠️</div>
+              <motion.div 
+                className="absolute -top-3 -right-3 w-8 h-8 bg-blue-500 rounded-full"
+                animate={{ 
+                  scale: [1, 1.8, 1],
+                  opacity: [1, 0.5, 1],
+                }}
+                transition={{ 
+                  duration: 1,
+                  repeat: Infinity,
+                }}
+              />
+              {/* Mechanical gear effect */}
+              <motion.div 
+                className="absolute inset-0 rounded-full border-4 border-dashed border-red-500/40"
+                animate={{ 
+                  rotate: 360,
+                }}
+                transition={{ 
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
+            </div>
             {/* Pulse effect */}
             <motion.div 
               className="absolute inset-0 rounded-full bg-red-500/40"
@@ -240,7 +341,7 @@ const ResultScreen = ({
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            SO CLOSE!
+            {getDynamicText()}
           </motion.h2>
         </>
       )}
@@ -263,10 +364,15 @@ const ResultScreen = ({
           <div>
             Your Guess: <span className="font-bold">{userGuess}%</span>
           </div>
-          <div className="h-px md:h-auto md:w-px bg-white/30"></div>
-          <div>
-            Difference: <span className="font-bold">{Math.abs(userGuess - pair.similarity)}%</span>
-          </div>
+          {/* Only show difference for non-winners */}
+          {!score && (
+            <>
+              <div className="h-px md:h-auto md:w-px bg-white/30"></div>
+              <div>
+                Difference: <span className="font-bold">{difference}%</span>
+              </div>
+            </>
+          )}
         </div>
       </motion.div>
       
@@ -277,9 +383,7 @@ const ResultScreen = ({
         transition={{ delay: 0.8 }}
       >
         <p className={score ? "text-yellow-200/90" : "text-white/80"}>
-          {score 
-            ? "You're a similarity master! Keep it up!" 
-            : "You needed to be within 15% to score a point"}
+          {getEncouragementMessage()}
         </p>
       </motion.div>
       

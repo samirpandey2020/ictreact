@@ -3,7 +3,7 @@ import { API_BASE_URL, API_ENDPOINTS } from '../../config';
 
 export const useGameLogic = () => {
   const [state, setState] = useState('welcome');
-  const [userGuess, setUserGuess] = useState(50);
+  const [userGuess, setUserGuess] = useState(0);
   const [pair, setPair] = useState(null);
   const [score, setScore] = useState(0);
   const [sound, setSound] = useState(true);
@@ -39,7 +39,7 @@ export const useGameLogic = () => {
   const startGame = () => {
     if (pairs.length === 0) return;
     setPair(randomPair());
-    setUserGuess(50);
+    setUserGuess(0);
     setScore(0);
     setState('playing');
     
@@ -75,8 +75,8 @@ export const useGameLogic = () => {
     }, 800);
     
     setTimeout(() => {
-      const diff = Math.abs(userGuess - pair.similarity);
-      const correct = diff <= 15;
+      // Exact match only for winner
+      const correct = userGuess === pair.similarity;
       setScore(correct ? 1 : 0);
       setResultType(correct ? 'win' : 'lose');
       
@@ -105,7 +105,7 @@ export const useGameLogic = () => {
 
   const playAgain = () => {
     setPair(randomPair());
-    setUserGuess(50);
+    setUserGuess(0);
     setScore(0);
     setState('playing');
   };
